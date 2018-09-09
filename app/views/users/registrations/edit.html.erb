@@ -1,0 +1,46 @@
+<h2>Edit <%= resource_name.to_s.humanize %></h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <h3><%=current_user.username%>(<%= current_user.email %>)'s Profile</h3>
+  <br>
+  <div class="field">
+    <%= f.label :이름 %><br />
+    <%= f.text_field :username, autofocus: true %><br><br>
+  </div>
+
+  <div class="field">
+    <%= f.label :전화번호 %><br />
+    <%= f.text_field :phone_num, autofocus: true %><br><br>
+  </div>
+
+  <div class="field">
+    <%= f.label :비밀번호_변경 %> (바꾸고 싶지 않을 경우 빈 칸으로 남겨두세요!)<br />
+    <%= f.password_field :password, autocomplete: "off" %>
+    <% if @minimum_password_length %>
+      <br />
+      <em><%= @minimum_password_length %> characters minimum</em>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :변경된_비밀번호_재확인 %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "off" %><br><br>
+  </div>
+
+  <div class="field">
+    <%= f.label :정보수정을_위해_기존_비밀번호를_입력하세요 %><br />
+    <%= f.password_field :current_password, autocomplete: "current-password" %><br><br>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit "Update" %>
+  </div>
+<% end %>
+
+<h3>Cancel my account</h3>
+
+<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+
+<%= link_to "Back", :back %>

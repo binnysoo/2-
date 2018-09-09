@@ -1,0 +1,30 @@
+
+
+
+    <br>
+    제목 : <%=@post.title%><br>
+    작성자 : <%=@post.username%><br>
+    내용 : <%=@post.content%><br><br>
+    <% if @post.email == current_user.email %>
+        <a href="/main/destroy/<%=@post.id%>">[삭제]</a>
+        <a href="/main/edit/<%=@post.id%>">[수정]</a><br><br>
+    <% end %>
+
+    ----------------------------------------------------------------------------------------------<br>
+    <%@post.comments.each_with_index do |c,index|%>
+    	ㄴ <%= (index+1) %>. <%=c.username%> | <%=c.content%>
+        <br><img src="<%=c.img_url%>", style="width: 400px"/>
+          <% if c.email == current_user.email %>
+    	　  <a href="/main/comment/destroy/<%=@post.id%>/<%=c.id%>">댓글 삭제</a>
+          <% end %>
+          <br>
+    <%end%>
+
+    <form action="/main/comment/create/<%=@post.id%>" method="POST", enctype="multipart/form-data">
+    	<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    	<br>댓글 작성: <input type="text" name="content"<b>
+        <input type="file" name="image">
+    	<input type="submit" value="댓글 입력">
+    </form>
+    ----------------------------------------------------------------------------------------------<br>
+    <a href="/">목록으로</a>
